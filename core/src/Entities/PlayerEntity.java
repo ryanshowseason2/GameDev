@@ -56,6 +56,9 @@ public class PlayerEntity extends Ship implements InputProcessor, RayCastCallbac
 	int m_damage15SoundIndex = 0;
 	int m_damage30SoundIndex = 0;
 	int m_damage100SoundIndex = 0;
+	int m_shieldDamage = 0;
+	int m_shieldDepleted = 0;
+	int m_shieldsRestored = 0;
 	
 	public ArrayList<CounterMeasure> m_availableCMS = new ArrayList< CounterMeasure >();
 	
@@ -90,6 +93,9 @@ public class PlayerEntity extends Ship implements InputProcessor, RayCastCallbac
 		m_damage15SoundIndex = AudioManager.AddToLibrary("data/sounds/armor hit/5_15percenthit.ogg");
 		m_damage30SoundIndex = AudioManager.AddToLibrary("data/sounds/armor hit/15_30percenthit.ogg");
 		m_damage100SoundIndex = AudioManager.AddToLibrary("data/sounds/armor hit/30percenthit.ogg");
+		m_shieldDamage = AudioManager.AddToLibrary("data/sounds/shield hit/shieldhit.ogg");
+		m_shieldDepleted = AudioManager.AddToLibrary("data/sounds/shield hit/shielddown.ogg");
+		m_shieldsRestored = AudioManager.AddToLibrary("data/sounds/shield hit/shieldsrestored.ogg");
 	}
 	
 	
@@ -283,7 +289,13 @@ public class PlayerEntity extends Ship implements InputProcessor, RayCastCallbac
 	@Override
 	public void Draw( SpriteBatch renderer )
     {
+		float shieldsBefore = m_shieldIntegrity;
 		super.Draw(renderer);	
+		
+		if( shieldsBefore <= 0 && m_shieldIntegrity > 0 )
+		{
+			AudioManager.PlaySound(m_shieldsRestored, false, this );
+		}
 		
 		if(!m_inMenu)
 		{
@@ -300,16 +312,22 @@ public class PlayerEntity extends Ship implements InputProcessor, RayCastCallbac
 	@Override
 	public void damageIntegrity( ViewedCollidable damageOrigin, float damage , DamageType type)
 	{
-		float integrityBefore = m_integrity;		
+		float integrityBefore = m_integrity;
+		float shieldIntegrityBefore = m_shieldIntegrity;
 		
 		super.damageIntegrity(damageOrigin, damage, type);
 		
 		if( m_shieldIntegrity > 0)
 		{
-			
+			AudioManager.PlaySound(m_shieldDamage, false, this );
 		}
 		else
 		{
+			if( shieldIntegrityBefore > 0 )
+			{
+				AudioManager.PlaySound(m_shieldDepleted, false, this );
+			}
+			
 			float damageTaken = integrityBefore - m_integrity;
 			float percentageDamage = damageTaken / m_maxIntegrity * 100;
 			if( percentageDamage > 0 )

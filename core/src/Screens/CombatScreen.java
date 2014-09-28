@@ -106,7 +106,7 @@ public class CombatScreen extends OrionScreen implements ContactListener
 	ArrayList<ViewedCollidable> m_aliveThings = new ArrayList<ViewedCollidable>();
 	RayHandler rayHandler;
 	EnemyShip shippy;
-	//CivilianShuttle cvs;
+	CivilianShuttle cvs;
 	
 	Skin skin;
 	Stage m_stage;
@@ -163,8 +163,10 @@ public class CombatScreen extends OrionScreen implements ContactListener
         
         //asty = new Asteroid("asteroid", 4.5f, .1f, w, 7, 60, m_aliveThings );
         
+        Asteroid a = new Asteroid( "shardcomet", 1.4f, .4f, w, 0f, 0f, m_aliveThings );
+        
         ClutterSpawner c = new ClutterSpawner( w, m_aliveThings);
-        //c.SpawnAsteroidsFromImage("data/asteroidspawnmap.png", 20, 15, 5);
+        c.SpawnAsteroidsFromImage("data/asteroidspawnmap.png", 20, 15, 5);
         glViewport = new Rectangle(0, 0, WIDTH, HEIGHT);
         w.setContactListener(this);
         //shippy = new EnemyShip( "crazedrammer", 3.5f,w, 0, 50, 0, 50, 2, m_aliveThings );
@@ -172,13 +174,13 @@ public class CombatScreen extends OrionScreen implements ContactListener
         PoorStation p = new PoorStation(w, 0, -50, 1, m_aliveThings );
         PoorStation p1 = new PoorStation(w, -50, 0, 1, m_aliveThings );
         PoorStation p2 = new PoorStation(w, 50, -50, 1, m_aliveThings );
-        /*cvs = new CivilianShuttle(w, 0, -2, 1, m_aliveThings, p );
+        cvs = new CivilianShuttle(w, 0, -2, 1, m_aliveThings, p );
         cvs.AddMidRangeCounterMeasure( new Laser( w, cvs, m_aliveThings ) );
         //cvs.m_shippingTargets.add( p1 );
         //cvs.m_shippingTargets.add( p2 );
         cvs.SetBehavior( CivilianBehavior.PatrolWaypoints );
         cvs.SetWaypoints(WaypointUpdateType.RadialCoordinates, cvs.GenerateRadialWaypoints(10, 5), player, null);
-        cvs.EnterFromSidelines(0, -200);*/
+        cvs.EnterFromSidelines(0, -200);
        // shippy.AddToFighterGroup( new EnemyShip( "stateczek", 0, w, 0, 90, -90, 40, 2, m_aliveThings ) );
         shippy.AddShortRangeCounterMeasure( new MachineGun( w, shippy, m_aliveThings ) );
         
