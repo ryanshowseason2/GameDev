@@ -224,6 +224,7 @@ public class CombatScreen extends OrionScreen implements ContactListener
         
         m_visualNovelStyleMessageText = new Label("I'm a message from somebody and I'm really longI'm a message from somebody and I'm really longI'm a message from somebody and I'm really longI'm a message from somebody and I'm really longI'm a message from somebody and I'm really long", skin);
         m_visualNovelStyleMessageText.setWrap(true);
+        m_visualNovelStyleMessageText.setColor(0, 0, 0, 1);
         m_visualNovelStyleMessageText.setAlignment(Align.top | Align.left);
         m_VisualNovelStyleMessageButton = new Button( skin );
         m_VisualNovelStyleMessageButton.add(m_visualNovelStyleMessageText).expand().fill();
@@ -249,6 +250,7 @@ public class CombatScreen extends OrionScreen implements ContactListener
     	m_timedImage = new Image(m_defaultButtonTexture);
         Container imageContainer = new Container( m_timedImage );
         m_timedMessageText = new Label("I'm a message from somebody and I'm really longI'm a message from somebody and I'm really longI'm a message from somebody and I'm really longI'm a message from somebody and I'm really longI'm a message from somebody and I'm really long", skin);
+        m_timedMessageText.setColor(0, 0, 0, 1);
         m_timedMessageText.setWrap(true);
         m_timedMessageText.setAlignment(Align.top | Align.left);
 
