@@ -297,7 +297,7 @@ public class PlayerEntity extends Ship implements InputProcessor, RayCastCallbac
 			AudioManager.PlaySound(m_shieldsRestored, false, this );
 		}
 		
-		if(!m_inMenu)
+		if(!GetInMenu())
 		{
 			float centerX = m_body.getPosition().x;
 			float centerY = m_body.getPosition().y;

@@ -25,7 +25,7 @@ public class EquipChangeListener extends ChangeListener
 		
 		if(actor.getUserObject() == null )
 		{
-			ViewedCollidable.m_inMenu = false;
+			ViewedCollidable.ExitMenu();
 			m_window.remove();
 		}
 		else

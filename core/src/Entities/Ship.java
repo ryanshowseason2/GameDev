@@ -212,7 +212,7 @@ public class Ship extends ViewedCollidable
 	public void Draw(SpriteBatch renderer)
 	{
 		super.Draw(renderer);
-		if (!m_inMenu)
+		if (!GetInMenu())
 		{
 
 			m_detectionRange = m_detectionRangeReset;

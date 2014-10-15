@@ -43,7 +43,7 @@ public class PoorStation extends EnemyShip
 		m_angleRadians = m_body.getAngle();
 		m_angleDegrees = (float) (m_angleRadians * 180 / Math.PI);
 		super.Draw(renderer);
-		if(!m_inMenu && ! m_freezeShip )
+		if(!GetInMenu() && ! m_freezeShip )
 		{			
 			ce.EngineBrake();
 		}

@@ -91,7 +91,7 @@ public abstract class CounterMeasure
 
 	public void Unequip()
 	{
-		// Nothing to do in base class
+		StopSound();
 	}
 	
 	public void StopSound()

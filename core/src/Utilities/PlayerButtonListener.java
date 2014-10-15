@@ -69,7 +69,7 @@ public class PlayerButtonListener extends ChangeListener
 		if( actor == m_player.m_changeEquipment || changeEquipment )
 		{
 			// display the equipment screen...
-			ViewedCollidable.m_inMenu = true;
+			ViewedCollidable.EnterMenu();
 			
 			Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 			Dialog window = new Dialog("", skin);

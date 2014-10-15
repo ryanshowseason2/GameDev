@@ -45,7 +45,7 @@ public abstract class ViewedCollidable
     float[] m_damageReductions = {0,0,0,0};
     public boolean m_ignoreForPathing = false;
     public boolean m_isTargetable = true;
-    public static boolean m_inMenu = false;
+    private static boolean m_inMenu = false;
     public float m_detectionRange = Float.MAX_VALUE;
     public float m_detectionRangeReset = 50f;
     int m_deathSoundIndex = -1;
@@ -74,7 +74,20 @@ public abstract class ViewedCollidable
         
      };  
 
+     public static void EnterMenu()
+     {
+    	 m_inMenu = true;
+    	 AudioManager.PauseAll();
+     }
      
+     public static void ExitMenu()
+     {
+    	 m_inMenu = false;
+    	 AudioManager.ResumeAll();
+     }
+     
+     public static boolean GetInMenu()
+     { return m_inMenu; }
 	   
       public ViewedCollidable(String appearanceLocation, float collisionScale,	World world, float startX, float startY,ArrayList<ViewedCollidable> aliveThings, int factionCode)
 	   {

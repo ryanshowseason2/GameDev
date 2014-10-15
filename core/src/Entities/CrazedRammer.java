@@ -24,7 +24,7 @@ public class CrazedRammer extends EnemyShip
 	public void Draw(SpriteBatch renderer)
 	{
 		super.Draw(renderer);
-		if(!m_inMenu && ! m_freezeShip )
+		if(!GetInMenu() && ! m_freezeShip )
 		{
 			
 			if(m_weaponsFree > 0)

@@ -374,7 +374,7 @@ public class CombatScreen extends OrionScreen implements ContactListener
 	@Override
 	public void draw(float delta) 
 	{
-		if( !ViewedCollidable.m_inMenu )
+		if( !ViewedCollidable.GetInMenu() )
 		{
 			w.step(1/60f, 60, 20);
 			handleInput();
@@ -510,7 +510,7 @@ public class CombatScreen extends OrionScreen implements ContactListener
 		{
 			// set the dialog to be visible
 			m_visualNovelStyleMessage.setVisible(true);
-			player.m_inMenu = true;
+			ViewedCollidable.EnterMenu();
 			VisualNovelStyleMessage vnm = m_visualNovelStyleMessageList.get(0);
 			if( vnm.Display( renderer ) )
 			{
@@ -520,7 +520,7 @@ public class CombatScreen extends OrionScreen implements ContactListener
 				{
 					//set the dialog as invisible
 					m_visualNovelStyleMessage.setVisible(false);
-					player.m_inMenu = false;
+					ViewedCollidable.ExitMenu();
 				}
 			}
 		}

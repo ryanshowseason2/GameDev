@@ -90,7 +90,7 @@ public class EnemyShip extends Ship implements QueryCallback
 	public void Draw(SpriteBatch renderer)
 	{
 		super.Draw(renderer);
-		if(!m_inMenu && ! m_freezeShip )
+		if(!GetInMenu() && ! m_freezeShip )
 		{
 			IfTargetDeadDisengage();
 			
