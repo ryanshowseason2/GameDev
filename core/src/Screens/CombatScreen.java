@@ -98,7 +98,7 @@ public class CombatScreen extends OrionScreen implements ContactListener
     public static int HEIGHT = 768;
     private Rectangle glViewport;
     BitmapFont font;
-    public PlayerEntity player;
+    public static PlayerEntity player;
     World w;
     MydebugRenderer debugRenderer = new MydebugRenderer();
     Asteroid asty;

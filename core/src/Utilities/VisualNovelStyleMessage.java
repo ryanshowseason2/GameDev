@@ -106,6 +106,8 @@ public class VisualNovelStyleMessage extends ChangeListener
 			if( m_charactersToDisplay < (m_message.length() ) )
 			{
 				m_charactersToDisplay++;
+				if((m_charactersToDisplay % m_char.m_talkSpeed) == 0)
+					AudioManager.PlaySound(m_char.m_soundIndex, false, CombatScreen.player );
 			}
 		}
 		else

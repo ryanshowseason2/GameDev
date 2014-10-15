@@ -3,6 +3,8 @@ package Entities;
 import java.util.HashMap;
 import java.util.Map;
 
+import Utilities.AudioManager;
+
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -16,12 +18,20 @@ public class GameCharacter
 	String m_characterName;
 	Map  m_characterImages = new HashMap();
 	Map  m_characterTextures = new HashMap();
+	public int m_soundIndex;
+	public int m_talkSpeed = 5;
 	
 	
 	public GameCharacter( String name )
 	{
 		m_characterName = name;
 		LoadImageFiles( "data/"+name );
+		LoadAudioFile();
+	}
+	
+	private void LoadAudioFile()
+	{
+		m_soundIndex = AudioManager.AddToLibrary("data/"+m_characterName+"/"+m_characterName+".ogg");
 	}
 	
 	private void LoadImageFiles(String directory) 
