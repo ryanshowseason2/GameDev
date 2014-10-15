@@ -332,7 +332,6 @@ public class CombatScreen extends OrionScreen implements ContactListener
         player.m_changeEquipment = m_changeEquipment;
 
 
-        
         window.setMovable(false);
         window.setPosition(0, HEIGHT/2);
         window.row();
@@ -375,7 +374,7 @@ public class CombatScreen extends OrionScreen implements ContactListener
 	@Override
 	public void draw(float delta) 
 	{
-		if( !player.m_inMenu )
+		if( !ViewedCollidable.m_inMenu )
 		{
 			w.step(1/60f, 60, 20);
 			handleInput();
@@ -515,14 +514,15 @@ public class CombatScreen extends OrionScreen implements ContactListener
 			VisualNovelStyleMessage vnm = m_visualNovelStyleMessageList.get(0);
 			if( vnm.Display( renderer ) )
 			{
-				m_visualNovelStyleMessageList.remove(0);				
+				m_visualNovelStyleMessageList.remove(0);
+				
+				if( m_visualNovelStyleMessageList.size() <= 0 )
+				{
+					//set the dialog as invisible
+					m_visualNovelStyleMessage.setVisible(false);
+					player.m_inMenu = false;
+				}
 			}
-		}
-		else
-		{
-			//set the dialog as invisible
-			m_visualNovelStyleMessage.setVisible(false);
-			player.m_inMenu = false;
 		}
 	}
 	

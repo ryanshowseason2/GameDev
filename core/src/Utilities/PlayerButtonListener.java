@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 import Entities.PlayerEntity;
+import Entities.ViewedCollidable;
 import Equipables.CounterMeasure;
 
 public class PlayerButtonListener extends ChangeListener
@@ -68,7 +69,7 @@ public class PlayerButtonListener extends ChangeListener
 		if( actor == m_player.m_changeEquipment || changeEquipment )
 		{
 			// display the equipment screen...
-			m_player.m_inMenu = true;
+			ViewedCollidable.m_inMenu = true;
 			
 			Skin skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 			Dialog window = new Dialog("", skin);

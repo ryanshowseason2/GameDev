@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
 import Entities.PlayerEntity;
+import Entities.ViewedCollidable;
 import Equipables.CounterMeasure;
 
 public class EquipChangeListener extends ChangeListener
@@ -24,7 +25,7 @@ public class EquipChangeListener extends ChangeListener
 		
 		if(actor.getUserObject() == null )
 		{
-			m_player.m_inMenu = false;
+			ViewedCollidable.m_inMenu = false;
 			m_window.remove();
 		}
 		else
