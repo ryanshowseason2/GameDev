@@ -3,6 +3,7 @@ package Entities;
 import java.util.ArrayList;
 import java.util.Date;
 
+import Utilities.AllinPathRaycast;
 import Utilities.AudioManager;
 import Utilities.EquipChangeListener;
 import Utilities.PlayerButtonListener;
@@ -59,8 +60,10 @@ public class PlayerEntity extends Ship implements InputProcessor, RayCastCallbac
 	int m_shieldDamage = 0;
 	int m_shieldDepleted = 0;
 	int m_shieldsRestored = 0;
+	int m_proximityAlarmIndex = 0;
 	
 	public ArrayList<CounterMeasure> m_availableCMS = new ArrayList< CounterMeasure >();
+	private long m_proximityAlarmInstanceID = -1;
 	
 	
 	public PlayerEntity(String appearanceLocation, World world, float startX,
@@ -96,6 +99,7 @@ public class PlayerEntity extends Ship implements InputProcessor, RayCastCallbac
 		m_shieldDamage = AudioManager.AddToLibrary("data/sounds/shield hit/shieldhit.ogg");
 		m_shieldDepleted = AudioManager.AddToLibrary("data/sounds/shield hit/shielddown.ogg");
 		m_shieldsRestored = AudioManager.AddToLibrary("data/sounds/shield hit/shieldsrestored.ogg");
+		m_proximityAlarmIndex = AudioManager.AddToLibrary("data/sounds/collision alarm/collision.ogg");
 	}
 	
 	
@@ -297,6 +301,24 @@ public class PlayerEntity extends Ship implements InputProcessor, RayCastCallbac
 			AudioManager.PlaySound(m_shieldsRestored, false, this );
 		}
 		
+		AllinPathRaycast ainprc = new AllinPathRaycast(m_body, 0.0f);
+		Vector2 targetPositionModded = new Vector2();
+		targetPositionModded.x = m_body.getPosition().x + m_body.getLinearVelocity().x*5;
+		targetPositionModded.y = m_body.getPosition().y + m_body.getLinearVelocity().y*5;
+		if( m_body.getLinearVelocity().len() > 0 )
+		{
+			m_world.rayCast(ainprc, m_body.getPosition(), targetPositionModded  );
+			if( ainprc.GetEntitiesHit().size() > 0 && m_proximityAlarmInstanceID == -1 )
+			{
+				m_proximityAlarmInstanceID = AudioManager.PlaySound(m_proximityAlarmIndex, true, this );				
+			}
+			else if( ainprc.GetEntitiesHit().size() == 0)
+			{
+				AudioManager.StopSound(m_proximityAlarmIndex, m_proximityAlarmInstanceID);
+				m_proximityAlarmInstanceID = -1;
+			}
+			
+		}
 		if(!GetInMenu())
 		{
 			float centerX = m_body.getPosition().x;
