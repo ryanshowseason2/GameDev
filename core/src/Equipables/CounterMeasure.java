@@ -48,7 +48,7 @@ public abstract class CounterMeasure
 	{
 		m_specialAbilitiesActivated.put(Characters.Sandy, false);
 		m_specialAbilitiesActivated.put(Characters.Gourt, false);
-		m_specialAbilitiesActivated.put(Characters.Noel, true);
+		m_specialAbilitiesActivated.put(Characters.Noel, false);
 		m_specialAbilitiesActivated.put(Characters.Shavret, false);
 		m_specialAbilitiesActivated.put(Characters.Bobbi, false);
 		m_specialAbilitiesActivated.put(Characters.SSid, false);

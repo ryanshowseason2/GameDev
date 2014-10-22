@@ -180,7 +180,7 @@ public class MissileEntity extends EnemyShip implements QueryCallback
 			float targetCenterX = vc.m_body.getPosition().x;
 			float targetCenterY = vc.m_body.getPosition().y;
 			double angleRadians = Math.atan2(centerY - targetCenterY,centerX - targetCenterX);
-			float forceDirection =m_specialAbilitiesActivated.get(Characters.Shavret ) ?-2:1;
+			float forceDirection =m_specialAbilitiesActivated.get(Characters.Shavret ) ?-2:.009f;
 			float xForce =  (float)( -m_missileDamage * Math.cos(angleRadians) * forceDirection);
 		    float yForce =  (float)( -m_missileDamage * Math.sin(angleRadians) * forceDirection);
 		    vc.m_body.applyLinearImpulse(2*xForce, 2*yForce, vc.m_body.getPosition().x, vc.m_body.getPosition().y, true);
