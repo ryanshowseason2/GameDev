@@ -227,6 +227,8 @@ public class MydebugRenderer {
 			for (int i = 0; i < vertexCount; i++) {
 				chain.getVertex(i, vertices[i]);
 				transform.mul(vertices[i]);
+				vertices[i].x = vertices[i].x * 29f;
+				vertices[i].y = vertices[i].y * 29f;
 			}
 			drawSolidPolygon(vertices, vertexCount, color, true);
 			return;

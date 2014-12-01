@@ -136,6 +136,10 @@ public class CombatScreen extends OrionScreen implements ContactListener
 	ParticleEffectPool m_integrityIndicatorPool;
 	PooledEffect m_pooledIntegrityIndicator;
 	
+	boolean m_planningModeStart = false;
+	boolean m_planningMode = false;
+	ArrayList< Vector2 > m_planningModeVelocties = new ArrayList< Vector2 >();
+	
 	public CombatScreen()
 	{
 		background = new Texture(Gdx.files.internal("data/background1.jpg"));
@@ -428,6 +432,16 @@ public class CombatScreen extends OrionScreen implements ContactListener
     			if(tmp.m_integrity > 0 || !tmp.deathThroesDone() )
     			{
     				tmp.Draw(spriteBatch);
+    				
+    				if( m_planningModeStart )
+        			{
+    					m_planningModeStart = false;
+    					m_planningModeVelocties.clear();    					
+        			}
+        			if( m_planningMode)
+        			{
+        				m_planningModeVelocties.add(tmp.m_body.getLinearVelocity());
+        			}   				
     			}
     			else
     			{
@@ -464,7 +478,7 @@ public class CombatScreen extends OrionScreen implements ContactListener
     		/** BOX2D LIGHT STUFF END */
     		
      		
-    		//debugRenderer.render(w, cam.combined);
+    		debugRenderer.render(w, cam.combined);
     		
     		m_stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 60f));
     		m_stage.draw();

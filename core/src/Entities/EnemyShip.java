@@ -518,7 +518,7 @@ public class EnemyShip extends Ship implements QueryCallback
 			 
 			 iterations++;
 			 
-			 if( iterations > 7 )
+			 if( iterations > 4 )
 			 {
 				 losToEnemy = true;
 			 }
@@ -590,6 +590,11 @@ public class EnemyShip extends Ship implements QueryCallback
 	@Override
 	public boolean reportFixture(Fixture fixture)
 	{
+		UpdateTrackedTargets(fixture);
+		return true;
+	}
+
+	protected void UpdateTrackedTargets(Fixture fixture) {
 		ViewedCollidable p = (ViewedCollidable) fixture.getBody().getUserData();
 		
 		if (p != null && 
@@ -614,7 +619,6 @@ public class EnemyShip extends Ship implements QueryCallback
 				m_trackedHostileTargets.add(p);
 			}
 		}
-		return true;
 	}
 
 	public void SetCurrentTarget(ViewedCollidable p)

@@ -14,9 +14,10 @@ import Entities.Projectile.Characters;
 
 public class MissileEntity extends EnemyShip implements QueryCallback
 {
-	float m_missileDamage = 40;
+	float m_missileDamage = 25;
 	boolean m_detonatedInsideShip = false;
 	private ViewedCollidable m_ship;
+	boolean m_explosionQuery = false;
 	
 	public MissileEntity( ViewedCollidable target, World world, float startX, float startY, float initialAngleAdjust,
 			float maxV, int factionCode, ArrayList<ViewedCollidable> aliveThings, Ship ship )
@@ -58,10 +59,12 @@ public class MissileEntity extends EnemyShip implements QueryCallback
 		m_integrity = 0;
 		float centerX = m_body.getPosition().x;
 		float centerY = m_body.getPosition().y;
+		m_explosionQuery = true;
 		m_world.QueryAABB(this, centerX - 3f / 2f,
 								centerY - 3f / 2f,
 								centerX + 3f / 2f,
 								centerY + 3f / 2f );
+		m_explosionQuery = false;
 	}
 	
 	@Override
@@ -76,10 +79,12 @@ public class MissileEntity extends EnemyShip implements QueryCallback
 			float centerX = m_body.getPosition().x;
 			float centerY = m_body.getPosition().y;
 			float explosionRange = m_specialAbilitiesActivated.get(Characters.Shavret ) ? .5f:2;
+			m_explosionQuery = true;
 			m_world.QueryAABB(this, centerX - 3f / explosionRange,
 									centerY - 3f / explosionRange,
 									centerX + 3f / explosionRange,
 									centerY + 3f / explosionRange );
+			m_explosionQuery = false;
 			m_missileDamage/=2;
 		}
 		
@@ -166,6 +171,18 @@ public class MissileEntity extends EnemyShip implements QueryCallback
 	@Override
 	public boolean reportFixture(Fixture fixture)
 	{
+		if( m_explosionQuery )
+		{
+			ApplyDamageAndForceToNearbyObjects(fixture);
+		}
+		else
+		{
+			UpdateTrackedTargets( fixture );
+		}
+		return true;
+	}
+
+	private void ApplyDamageAndForceToNearbyObjects(Fixture fixture) {
 		ViewedCollidable vc = (ViewedCollidable) fixture.getBody().getUserData();
 		
 		if (vc != null && 
@@ -185,6 +202,5 @@ public class MissileEntity extends EnemyShip implements QueryCallback
 		    float yForce =  (float)( -m_missileDamage * Math.sin(angleRadians) * forceDirection);
 		    vc.m_body.applyLinearImpulse(2*xForce, 2*yForce, vc.m_body.getPosition().x, vc.m_body.getPosition().y, true);
 		}
-		return true;
 	}
 }
